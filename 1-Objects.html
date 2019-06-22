@@ -1,0 +1,61 @@
+<html>
+<head>
+    <script type="text/javascript">
+        //Creating Objects
+
+        //Snippet - 1 (Constructor Approach)
+        var obj1 = new Object();
+        obj1.ID = 1;
+        obj1.Name = "Bilal";
+        obj1.Show = function () {
+            console.log('ID: ' + this.ID);
+            console.log('Name: ' + this.Name);
+            console.log('Age: ' + this.Age); //Undefined
+        }
+        //Snippet - 2 (Literal Notation)
+        var obj2 = {
+            ID: 2,
+            Name: "Shahzad",
+            Show: function () {
+                console.log('ID: ' + this.ID);
+                console.log('Name: ' + this.Name);
+            }
+        };
+        
+        //Snippet -3 (Having function separtely for Reusing)
+        var obj3 = {
+            ID: 3,
+            Name: "Bilal Shahzad",
+            Show: ShowMe
+        };
+        var obj4 = {
+            ID: 4,
+            Name: "Bilal Shahzad",
+            Show: ShowMe
+        };
+
+        console.log("obj1.Show() Result")
+        obj1.Show();
+
+        console.log("-------------")
+        console.log("obj2.Show() Result")
+        obj2.Show();
+
+        console.log("-------------")
+        console.log("obj3.Show() Result")
+        obj3.Show();
+
+        console.log("-------------")
+        console.log("obj4.Show() Result")
+        obj4.Show();
+
+        function ShowMe() {
+            console.log('ID: ' + this.ID);
+            console.log('Name: ' + this.Name);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

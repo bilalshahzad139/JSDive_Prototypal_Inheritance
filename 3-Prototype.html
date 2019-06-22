@@ -1,0 +1,88 @@
+<html>
+<head>
+    <script type="text/javascript">
+        //Prototype chaining
+        function Employee(id,name) {
+            //Create Properties
+            this.ID = id
+            this.Name = name;
+            this.Show = function () {
+                console.log('ID: ' + this.ID);
+                console.log('Name: ' + this.Name);
+            }
+        }
+
+        //Create Object of Class using Constructor Approach
+        var empObj = new Employee(1,"Bilal");
+        console.log("empObj.Show() Result")
+        empObj.Show();
+        console.log("-------------")
+
+        /*
+        Function has a property => "prototype" (of Object Type)
+        When you access a property from an object, it is searched
+        1) Inside Object, if not found then
+        2) It is searched inside <instance constructor>.prototype
+        e.g. Access empObj.Age
+        Check if empObj contains Age? It doesn't.
+        Check if Employee.prototype contains Age? It doesn't
+        Check if Object.prototype contains Age? This is last level in checking
+        Question: Why did it check Object.prototype?
+        Answer: Because Employee.prototype is instance of Object class
+        */
+
+        console.log(Employee.prototype);
+        console.log(typeof Employee.prototype);
+        console.log(Employee.prototype instanceof Object);
+        console.log("-------------")
+
+        //As a best Practice, Functions or Shared Variables should be in Prototype
+        function Customer(id, name) {
+            //Create Properties
+            this.ID = id
+            this.Name = name;
+        }
+
+        Customer.prototype.Show = function () {
+            console.log('ID: ' + this.ID);
+            console.log('Name: ' + this.Name);
+        }
+
+        //Create Object of Class using Constructor Approach
+        var custObj = new Customer(2, "Shahzad");
+        console.log("Customer.Show() Result");
+        custObj.Show();
+        console.log("-------------");
+
+        /*
+        What if we call custObj.toString() function? What will happen?
+        1) It will search if custObj has 'toString' function. It doesn't.
+        2) It will go to Customer.prototype and see if it contains 'toString' function. It doesn't.
+        3) It will go to Object.prototype and see if it conatains 'toString' function. Yes it does.
+        */
+
+        
+        //Lets assign some other Type to Customer.prototype (Just for checking)
+        Customer.prototype = new Number();
+        console.log("-----After changing Type--------")
+        console.log(Customer.prototype);
+        console.log(Customer.prototype.constructor == Number)
+        console.log(typeof Customer.prototype); //It shows base type
+        console.log(Customer.prototype instanceof Number);
+        
+        /*
+        What if we call custObj.toString() function now? What will happen?
+        1) It will search if custObj has 'toString' function. It doesn't.
+        2) It will go to Customer.prototype and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of Customer.prototype now?
+        3) It will go to Number.prototype and see if it contains 'toString' function. It doesn't.
+        4) It will go to Object.prototype and see if it conatains 'toString' function. Yes it does.
+        */
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+    <script type="text/javascript">
+        //Creating Class/Constructor
+
+        //Snippet 1 - Parameterless constructor
+        function Employee() {
+            //Create Properties
+            this.ID = 0;
+            this.Name = "";
+            this.Show = function () {
+                console.log('ID: ' + this.ID);
+                console.log('Name: ' + this.Name);
+            }
+        }
+
+        //Create Object of Class using Constructor Approach
+        var empObj = new Employee();
+        empObj.ID = 1;
+        empObj.Name = "Bilal";
+        console.log("empObj.Show() Result")
+        empObj.Show();
+        console.log("-------------")
+
+        //Snippet 2 - Parametrized Constructor
+        function Customer(id,name) {
+            //Create Properties
+            this.ID = id;
+            this.Name = name;
+            this.Show = function () {
+                console.log('ID: ' + this.ID);
+                console.log('Name: ' + this.Name);
+            }
+        }
+
+        //Create Object of Class using Constructor Approach
+        var custObj = new Customer(2,"Shahzad");
+        console.log("custObj.Show() Result")
+        custObj.Show();
+        console.log("-------------")
+
+        //Snippet 3 - More information about objects & Constructor here
+        console.log('empObj.constructor: ' + empObj.constructor); //function/type which created this object
+        console.log('custObj.constructor: ' + custObj.constructor);//function/type which created this object
+        console.log("-------------")
+
+        //Snippet 4 - Adding Properties to Function Object (e.g. You may consider these static/utility function)
+
+        Employee.CalculateTax = function (salary) {
+            return salary * .2;
+        }
+        console.log("Employee.CalculateTax() Result: " + Employee.CalculateTax(100))
+        console.log("-------------")
+
+        /*
+        Have you every seen this before? 
+        What about jQuery.ajax() function?
+        //
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

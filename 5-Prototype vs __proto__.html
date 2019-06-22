@@ -1,0 +1,85 @@
+<html>
+<head>
+    <script type="text/javascript">
+        //Create an Employee class. Then create Its child class Manager
+
+        function Employee(id,name) {
+            //Create Properties
+            this.ID = id
+            this.Name = name;
+        }
+        Employee.prototype.Show = function () {
+            console.log('ID: ' + this.ID);
+            console.log('Name: ' + this.Name);
+        }
+
+        /*
+        - In latest browsers, You will see an hidden property __proto__ in every object. 
+        - __proto__ is simply pointing to "respective" prototype object (We've discussed earlier)
+        */
+
+        var emObj = new Employee(1, "Bilal");
+        //Question: What will be emObj.__proto__? 
+        //Answer: It is pointer/reference to Employee.prototype in this case
+
+        //Never change __proto__. But Lets play with it for learning
+
+        var emObj2 = new Employee(2, "Shahzad");
+
+        Employee.prototype.TestValue = 10;
+
+        console.log("-------------");
+        console.log('Employee.prototype.TestValue: ' + Employee.prototype.TestValue);
+        console.log('emObj.__proto__TestValue: ' + emObj.__proto__.TestValue);
+        console.log('emObj2.__proto__TestValue:' + emObj2.__proto__.TestValue);
+        console.log("-------------");
+
+        //Under the hood all three above are referencing to same object.
+        //As __proto__ is an object, you can see it also contains an hidden property "__proto__"
+
+        //Question: Go to 4-Inheritance.html file and try to answer following question 
+        //------------------------------------
+        /*
+        What if we call smObj.toString() function now? What will happen?
+        1) It will search if smObj has 'toString' function. It doesn't.
+        2) It will go to SeniorManager.prototype (smObj.__proto__) and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of SeniorManager.prototype now? => Manager
+        3) It will go to Manager.prototype (smObj.__proto__.__proto__) and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of Manager.prototype now? => Employee
+        4) It will go to Employee.prototype (smObj.__proto__.__proto__.__proto__) and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of Employee.prototype now? => Object
+        5) It will go to Object.prototype (smObj.__proto__.__proto__.__proto__.__proto__) and see if it conatains 'toString' function. Yes it does.
+        */
+
+
+        //Another question to clear if there is still any confusion. Never change __proto__
+
+        var firstObj = {
+            ID: 1,
+            Show: function () {
+                console.log('ID: ' + this.ID);
+                console.log('Name: ' + this.Name);
+            }
+        };
+        var seconObj = { Name: "Bilal" };
+
+        seconObj.__proto__ = firstObj;
+
+        //What will be output of seconObj.Show()? and why?
+        console.log(seconObj.Show());
+
+        /*
+        Answer:
+        1) It searched if there is any Show function in seconObj. No there is no.
+        2) Go to __proto__ and see if __proto__ contains Show function. Yes it does. Call it
+        3) Inside funtion, we are accessing this.ID => Check if seconObj contains ID. No it doesn't
+        4) Go to __proto__ and see if __proto__ contains ID. Yes it does. Use it.
+        5) Inside funtion, we are accessing this.Name => Check if seconObj contains Name. Yes it does. use it.
+        */
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

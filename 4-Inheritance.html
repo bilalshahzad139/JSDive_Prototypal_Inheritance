@@ -1,0 +1,70 @@
+<html>
+<head>
+    <script type="text/javascript">
+        //Create an Employee class. Then create Its child class Manager
+
+        function Employee(id,name) {
+            //Create Properties
+            this.ID = id
+            this.Name = name;
+        }
+        Employee.prototype.Show = function () {
+            console.log('ID: ' + this.ID);
+            console.log('Name: ' + this.Name);
+        }
+
+        //Child Class of Employee
+        function Manager(id, name, salary) {
+            Employee.call(this, id, name); //So that Manager Object also contains its parent properties
+            this.Salary = salary;
+        }
+
+        //Question: How to link Manager with Employee to create a "prototype chain"?
+        //Answer: Think Think and then check below
+        
+        //Here we are building "prototype" relationship
+        Manager.prototype = new Employee();
+        Manager.prototype.Show = function () {
+            Employee.prototype.Show.call(this); //If you want to display parent data too
+            console.log('Salary is:' + this.Salary);
+        }
+
+        var m = new Manager(1, "Bilal", 100);
+        m.Show();
+        console.log("-------------");
+        //Let's create another level
+        
+        function SeniorManager(id, name, salary,level) {
+            Manager.call(this, id, name, salary);
+            this.Level = level;
+        }
+
+        SeniorManager.prototype = new Manager();
+        SeniorManager.prototype.Show = function () {
+            Manager.prototype.Show.call(this); //If you want to display parent data too
+            console.log('Level is:' + this.Level);
+        }
+        var smObj = new SeniorManager(2, "Bilal Shahzad", 100, 1);
+        smObj.Show();
+        console.log("-------------");
+
+        /*
+        What if we call smObj.toString() function now? What will happen?
+        1) It will search if smObj has 'toString' function. It doesn't.
+        2) It will go to SeniorManager.prototype and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of SeniorManager.prototype now? => Manager
+        3) It will go to Manager.prototype and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of Manager.prototype now? => Employee
+        4) It will go to Employee.prototype and see if it contains 'toString' function. It doesn't.
+        Question: Where will it go next? What is type of Employee.prototype now? => Object
+        5) It will go to Object.prototype and see if it conatains 'toString' function. Yes it does.
+        */
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
